@@ -1,5 +1,7 @@
 # Study-Companion
-Live Demo: https://study-companion-lac.vercel.app
+
+**Live Demo:** https://study-companion-lac.vercel.app
+
 Study Companion is an adaptive AI study tool that transforms notes, audio, and images into personalized exam preparation formats based on different learning needs.
 
 ## Problem
