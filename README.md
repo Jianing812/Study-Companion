@@ -36,3 +36,7 @@ This project is currently being developed as a case competition prototype.
 
 ## Team
 Build With AI Case Competition Team
+<<<<<<< HEAD
+=======
+
+>>>>>>> fa0dcfa (Add interactive study mode demo)
