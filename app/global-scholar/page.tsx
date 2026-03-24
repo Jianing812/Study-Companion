@@ -7,7 +7,6 @@ type Language = "english" | "chinese" | "spanish" | "korean" | "french";
 
 const supportContent = {
   english: {
-    label: "English",
     title: "English Support Note",
     text: "This concept means that learning becomes harder when either the topic itself is difficult or the explanation is unclear. Good study support reduces unnecessary confusion so you can focus on the real concept.",
     glossary: {
@@ -17,7 +16,6 @@ const supportContent = {
     },
   },
   chinese: {
-    label: "中文",
     title: "中文辅助解释",
     text: "这个概念的意思是：学习之所以会变难，有两种可能。第一种是内容本身就很难，这叫做 intrinsic load。第二种是内容本来没有那么难，但表达方式很复杂、很混乱，这叫做 extraneous load。好的学习材料应该减少这种不必要的理解负担。",
     glossary: {
@@ -27,7 +25,6 @@ const supportContent = {
     },
   },
   spanish: {
-    label: "Español",
     title: "Explicación de apoyo en español",
     text: "Este concepto significa que aprender se vuelve más difícil cuando el tema en sí es complejo o cuando la explicación es confusa. Un buen apoyo de estudio reduce la confusión innecesaria para que puedas enfocarte en la idea principal.",
     glossary: {
@@ -37,7 +34,6 @@ const supportContent = {
     },
   },
   korean: {
-    label: "한국어",
     title: "한국어 보조 설명",
     text: "이 개념은 학습이 어려워지는 이유가 두 가지일 수 있다는 뜻입니다. 하나는 내용 자체가 어려운 경우이고, 다른 하나는 설명 방식이 혼란스러운 경우입니다. 좋은 학습 지원은 불필요한 혼란을 줄여 핵심 개념에 집중할 수 있게 합니다.",
     glossary: {
@@ -47,7 +43,6 @@ const supportContent = {
     },
   },
   french: {
-    label: "Français",
     title: "Explication d’appui en français",
     text: "Ce concept signifie que l’apprentissage devient plus difficile soit parce que le sujet lui-même est complexe, soit parce que l’explication est confuse. Un bon soutien d’étude réduit la confusion inutile pour vous aider à vous concentrer sur l’idée principale.",
     glossary: {
@@ -229,7 +224,7 @@ export default function GlobalScholarPage() {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1fr]">
           <div className="space-y-8">
             <div className="rounded-3xl bg-white p-8 shadow-sm">
               <h2 className="text-2xl font-semibold">Original Academic Content</h2>
@@ -241,7 +236,7 @@ export default function GlobalScholarPage() {
               <textarea
                 value={originalText}
                 onChange={(e) => setOriginalText(e.target.value)}
-                className="mt-6 min-h-[240px] w-full rounded-2xl border border-slate-200 p-4 text-sm leading-7 outline-none focus:border-emerald-400"
+                className="mt-6 min-h-[320px] w-full rounded-2xl border border-slate-200 p-4 text-sm leading-7 outline-none focus:border-emerald-400"
               />
 
               <div className="mt-6 flex flex-wrap gap-3">
@@ -267,7 +262,9 @@ export default function GlobalScholarPage() {
                 </select>
               </div>
             </div>
+          </div>
 
+          <div className="space-y-8">
             {supports.language && (
               <>
                 <div className="rounded-3xl bg-white p-8 shadow-sm">
@@ -441,9 +438,7 @@ export default function GlobalScholarPage() {
                 </div>
               </div>
             )}
-          </div>
 
-          <div className="space-y-8">
             <div className="rounded-3xl bg-white p-8 shadow-sm">
               <h2 className="text-2xl font-semibold">Quick Concept Check</h2>
               <p className="mt-4 text-slate-600">
