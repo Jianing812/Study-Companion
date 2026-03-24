@@ -3,112 +3,162 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export default function MultimodalPage() {
+export default function AudioWorkspace() {
   const [notes, setNotes] = useState(
-    "Photosynthesis is the process by which plants convert light energy into chemical energy. It mainly occurs in the chloroplasts and uses carbon dioxide, water, and sunlight to produce glucose and oxygen."
+    "Photosynthesis is the process by which plants convert light energy into chemical energy."
   );
+
+  const [supports, setSupports] = useState({
+    audio: true,
+    focus: false,
+    language: false,
+  });
+
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showTranscript, setShowTranscript] = useState(true);
+  const [speed, setSpeed] = useState(1);
+
+  function toggleSupport(type: "audio" | "focus" | "language") {
+    setSupports((prev) => ({
+      ...prev,
+      [type]: !prev[type],
+    }));
+  }
+
+  function togglePlay() {
+    setIsPlaying(!isPlaying);
+  }
+
+  function changeSpeed() {
+    const speeds = [1, 1.25, 1.5];
+    const next = speeds[(speeds.indexOf(speed) + 1) % speeds.length];
+    setSpeed(next);
+  }
+
+  function downloadTranscript() {
+    const blob = new Blob([notes], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "study-summary.txt";
+    a.click();
+  }
+
+  function downloadAudio() {
+    // demo用：下载一个假音频文件
+    const a = document.createElement("a");
+    a.href =
+      "https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b6b58.mp3?filename=cat-meow-6226.mp3";
+    a.download = "audio-summary.mp3";
+    a.click();
+  }
 
   return (
-    <main className="min-h-screen bg-sky-50 px-6 py-16 text-slate-900">
-      <section className="mx-auto max-w-6xl">
+    <main className="min-h-screen bg-sky-50 text-slate-900">
+      <section className="mx-auto max-w-6xl px-6 py-16">
         <Link
           href="/"
-          className="inline-block rounded-full bg-white px-4 py-2 text-sm font-medium shadow-sm hover:bg-slate-100"
+          className="inline-block rounded-full bg-white px-4 py-2 text-sm shadow-sm"
         >
-          ← Back to Home
+          ← Back
         </Link>
 
-        <div className="mt-8 max-w-4xl">
-          <h1 className="text-5xl font-bold leading-tight">
-            Multi-Modal Learner
-          </h1>
-          <p className="mt-5 text-lg leading-8 text-slate-600">
-            A study experience designed for students who absorb material better
-            by listening, replaying, and reviewing content in multiple formats.
-          </p>
+        <h1 className="mt-8 text-5xl font-bold">Audio Workspace</h1>
+
+        {/* 🔥 SUPPORT TOGGLE */}
+        <div className="mt-6 flex gap-3">
+          <button
+            onClick={() => toggleSupport("audio")}
+            className={`px-4 py-2 rounded ${
+              supports.audio ? "bg-blue-600 text-white" : "bg-gray-200"
+            }`}
+          >
+            🎧 Audio
+          </button>
+
+          <button
+            onClick={() => toggleSupport("focus")}
+            className={`px-4 py-2 rounded ${
+              supports.focus ? "bg-amber-500 text-white" : "bg-gray-200"
+            }`}
+          >
+            🐱 Focus
+          </button>
+
+          <button
+            onClick={() => toggleSupport("language")}
+            className={`px-4 py-2 rounded ${
+              supports.language ? "bg-green-600 text-white" : "bg-gray-200"
+            }`}
+          >
+            🌍 Language
+          </button>
         </div>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-2">
-          <div className="rounded-3xl bg-white p-8 shadow-sm">
-            <h2 className="text-2xl font-semibold">Input Study Material</h2>
-            <p className="mt-3 text-slate-600">
-              Paste class notes or textbook content below.
+        {/* INPUT */}
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          className="mt-6 w-full p-4 rounded border"
+        />
+
+        {/* 🎧 AUDIO */}
+        {supports.audio && (
+          <div className="mt-6 p-6 bg-white rounded shadow">
+            <h2 className="text-xl font-semibold">Audio Summary</h2>
+
+            <p className="mt-3 text-sm text-gray-600">
+              Playing at {speed}x speed
             </p>
 
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              className="mt-6 min-h-[260px] w-full rounded-2xl border border-slate-200 p-4 text-sm leading-7 outline-none focus:border-sky-400"
-            />
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="rounded-2xl bg-slate-900 px-5 py-3 font-medium text-white transition hover:bg-slate-800"
-              >
-                {isPlaying ? "Pause Audio" : "Play Audio Summary"}
+            <div className="mt-4 flex gap-3">
+              <button onClick={togglePlay} className="px-3 py-2 bg-black text-white rounded">
+                {isPlaying ? "Pause" : "Play"}
               </button>
 
-              <button
-                onClick={() => setShowTranscript(!showTranscript)}
-                className="rounded-2xl bg-slate-100 px-5 py-3 font-medium text-slate-700 transition hover:bg-slate-200"
-              >
-                {showTranscript ? "Hide Transcript" : "Show Transcript"}
+              <button onClick={changeSpeed} className="px-3 py-2 bg-gray-200 rounded">
+                Speed {speed}x
+              </button>
+
+              <button onClick={downloadAudio} className="px-3 py-2 bg-blue-500 text-white rounded">
+                Download Audio
               </button>
             </div>
           </div>
+        )}
 
-          <div className="space-y-8">
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
-              <h2 className="text-2xl font-semibold">Audio Player</h2>
-              <div className="mt-6 rounded-2xl bg-sky-100 p-5">
-                <p className="font-medium">
-                  {isPlaying ? "🔊 Now Playing" : "⏸ Audio Paused"}
-                </p>
-                <p className="mt-3 text-sm leading-6 text-slate-700">
-                  Photosynthesis is how plants use sunlight, water, and carbon
-                  dioxide to create glucose and oxygen. Think of it as the
-                  plant’s way of making food from light energy.
-                </p>
-
-                <div className="mt-5 h-3 w-full rounded-full bg-white">
-                  <div
-                    className={`h-3 rounded-full bg-slate-900 transition-all duration-700 ${
-                      isPlaying ? "w-2/3" : "w-1/4"
-                    }`}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {showTranscript && (
-              <div className="rounded-3xl bg-white p-8 shadow-sm">
-                <h2 className="text-2xl font-semibold">Transcript</h2>
-                <p className="mt-4 leading-7 text-slate-700">
-                  Photosynthesis is the process plants use to turn sunlight into
-                  usable energy. The key inputs are water, carbon dioxide, and
-                  sunlight. The main outputs are glucose and oxygen.
-                </p>
-              </div>
-            )}
-
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
-              <h2 className="text-2xl font-semibold">Replay Sections</h2>
-              <div className="mt-6 flex flex-col gap-3">
-                <button className="rounded-2xl bg-slate-100 px-4 py-3 text-left hover:bg-slate-200">
-                  Replay definition
-                </button>
-                <button className="rounded-2xl bg-slate-100 px-4 py-3 text-left hover:bg-slate-200">
-                  Replay key inputs and outputs
-                </button>
-                <button className="rounded-2xl bg-slate-100 px-4 py-3 text-left hover:bg-slate-200">
-                  Replay quick recap
-                </button>
-              </div>
-            </div>
+        {/* 🌍 LANGUAGE */}
+        {supports.language && (
+          <div className="mt-6 p-6 bg-white rounded shadow">
+            <h2 className="text-xl font-semibold">Simplified Explanation</h2>
+            <p className="mt-3 text-gray-700">
+              This concept explains how plants turn sunlight into energy.
+            </p>
           </div>
+        )}
+
+        {/* 🐱 FOCUS */}
+        {supports.focus && (
+          <div className="mt-6 p-6 bg-white rounded shadow">
+            <h2 className="text-xl font-semibold">Focus Tasks</h2>
+            <ul className="mt-3 space-y-2 text-sm">
+              <li>• Listen to audio once</li>
+              <li>• Summarize in one sentence</li>
+              <li>• Identify one key term</li>
+            </ul>
+          </div>
+        )}
+
+        {/* TRANSCRIPT */}
+        <div className="mt-6 p-6 bg-white rounded shadow">
+          <h2 className="text-xl font-semibold">Transcript</h2>
+          <p className="mt-3 text-sm">{notes}</p>
+
+          <button
+            onClick={downloadTranscript}
+            className="mt-4 px-3 py-2 bg-gray-200 rounded"
+          >
+            Download Transcript
+          </button>
         </div>
       </section>
     </main>
