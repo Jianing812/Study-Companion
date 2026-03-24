@@ -224,8 +224,9 @@ export default function GlobalScholarPage() {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1fr]">
-          <div className="space-y-8">
+        <div className="mt-8 space-y-8">
+          {/* Row 1 */}
+          <div className="grid gap-8 lg:grid-cols-2">
             <div className="rounded-3xl bg-white p-8 shadow-sm">
               <h2 className="text-2xl font-semibold">Original Academic Content</h2>
               <p className="mt-3 text-slate-600">
@@ -262,199 +263,217 @@ export default function GlobalScholarPage() {
                 </select>
               </div>
             </div>
-          </div>
 
-          <div className="space-y-8">
             {supports.language && (
-              <>
-                <div className="rounded-3xl bg-white p-8 shadow-sm">
-                  <h2 className="text-2xl font-semibold">Interactive Term Mapping</h2>
-                  <p className="mt-3 text-slate-600">
-                    Click difficult terms in the text to see their simpler meaning.
-                  </p>
+              <div className="rounded-3xl bg-white p-8 shadow-sm">
+                <h2 className="text-2xl font-semibold">Interactive Term Mapping</h2>
+                <p className="mt-3 text-slate-600">
+                  Click difficult terms in the text to see their simpler meaning.
+                </p>
 
-                  <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 leading-8 text-slate-800">
-                    {interactiveSegments.map((segment, index) =>
-                      segment.type === "text" ? (
-                        <span key={index}>{segment.content}</span>
-                      ) : (
-                        <button
-                          key={index}
-                          onClick={() => setActiveTerm(segment.term)}
-                          className="mx-1 rounded-lg bg-emerald-100 px-2 py-1 font-medium text-emerald-900 hover:bg-emerald-200"
-                        >
-                          {segment.content}
-                        </button>
-                      )
-                    )}
-                  </div>
-
-                  {activeTerm && (
-                    <div className="mt-4 rounded-2xl bg-emerald-100 p-5">
-                      <p className="font-semibold capitalize">{activeTerm}</p>
-                      <p className="mt-2 text-sm leading-6 text-slate-700">
-                        {termMappings[activeTerm]}
-                      </p>
+                <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 leading-8 text-slate-800">
+                  {interactiveSegments.map((segment, index) =>
+                    segment.type === "text" ? (
+                      <span key={index}>{segment.content}</span>
+                    ) : (
                       <button
-                        onClick={() => setActiveTerm(null)}
-                        className="mt-3 text-sm font-medium underline"
+                        key={index}
+                        onClick={() => setActiveTerm(segment.term)}
+                        className="mx-1 rounded-lg bg-emerald-100 px-2 py-1 font-medium text-emerald-900 hover:bg-emerald-200"
                       >
-                        Close
+                        {segment.content}
                       </button>
-                    </div>
+                    )
                   )}
                 </div>
 
-                <div className="rounded-3xl bg-white p-8 shadow-sm">
-                  <h2 className="text-2xl font-semibold">Simplified Explanation</h2>
-                  <p className="mt-3 text-slate-600">
-                    Clearer academic language while keeping the key meaning.
-                  </p>
-
-                  <div className="mt-6 rounded-2xl bg-emerald-100 p-5">
-                    {showSimplified ? (
-                      <p className="leading-7 text-slate-800">
-                        Cognitive load theory means that your brain can only handle
-                        a limited amount of information at one time. Some material
-                        is difficult because the topic itself is hard. This is
-                        called <span className="font-semibold">intrinsic load</span>.
-                        Other times, the topic feels harder because it is presented
-                        in a confusing way. This is called{" "}
-                        <span className="font-semibold">extraneous load</span>.
-                      </p>
-                    ) : (
-                      <p className="leading-7 text-slate-500">
-                        Your simplified explanation will appear here.
-                      </p>
-                    )}
+                {activeTerm && (
+                  <div className="mt-4 rounded-2xl bg-emerald-100 p-5">
+                    <p className="font-semibold capitalize">{activeTerm}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-700">
+                      {termMappings[activeTerm]}
+                    </p>
+                    <button
+                      onClick={() => setActiveTerm(null)}
+                      className="mt-3 text-sm font-medium underline"
+                    >
+                      Close
+                    </button>
                   </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Row 2 */}
+          {supports.language && (
+            <div className="grid gap-8 lg:grid-cols-2">
+              <div className="rounded-3xl bg-white p-8 shadow-sm">
+                <h2 className="text-2xl font-semibold">Simplified Explanation</h2>
+                <p className="mt-3 text-slate-600">
+                  Clearer academic language while keeping the key meaning.
+                </p>
+
+                <div className="mt-6 rounded-2xl bg-emerald-100 p-5">
+                  {showSimplified ? (
+                    <p className="leading-7 text-slate-800">
+                      Cognitive load theory means that your brain can only handle
+                      a limited amount of information at one time. Some material
+                      is difficult because the topic itself is hard. This is
+                      called <span className="font-semibold">intrinsic load</span>.
+                      Other times, the topic feels harder because it is presented
+                      in a confusing way. This is called{" "}
+                      <span className="font-semibold">extraneous load</span>.
+                    </p>
+                  ) : (
+                    <p className="leading-7 text-slate-500">
+                      Your simplified explanation will appear here.
+                    </p>
+                  )}
                 </div>
+              </div>
 
-                <div className="rounded-3xl bg-white p-8 shadow-sm">
-                  <h2 className="text-2xl font-semibold">Language Support</h2>
-                  <p className="mt-3 text-slate-600">
-                    Additional support to make academic ideas easier to understand.
+              <div className="rounded-3xl bg-white p-8 shadow-sm">
+                <h2 className="text-2xl font-semibold">Language Support</h2>
+                <p className="mt-3 text-slate-600">
+                  Additional support to make academic ideas easier to understand.
+                </p>
+
+                <div className="mt-6 rounded-2xl border border-slate-200 p-5">
+                  <p className="font-semibold">{currentSupport.title}</p>
+                  <p className="mt-3 leading-7 text-slate-700">
+                    {currentSupport.text}
                   </p>
+                </div>
+              </div>
+            </div>
+          )}
 
-                  <div className="mt-6 rounded-2xl border border-slate-200 p-5">
-                    <p className="font-semibold">{currentSupport.title}</p>
-                    <p className="mt-3 leading-7 text-slate-700">
-                      {currentSupport.text}
+          {/* Row 3 */}
+          {supports.language && (
+            <div className="grid gap-8 lg:grid-cols-2">
+              <div className="rounded-3xl bg-white p-8 shadow-sm">
+                <h2 className="text-2xl font-semibold">Bilingual Glossary</h2>
+                <div className="mt-6 space-y-4">
+                  <div className="rounded-2xl border border-slate-200 p-4">
+                    <p className="font-semibold">
+                      {currentSupport.glossary.intrinsic}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      The mental effort caused by the actual difficulty of the
+                      topic itself.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-200 p-4">
+                    <p className="font-semibold">
+                      {currentSupport.glossary.extraneous}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      Extra mental effort caused by poor explanations or confusing
+                      presentation.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-200 p-4">
+                    <p className="font-semibold">
+                      {currentSupport.glossary.workingMemory}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      The part of the mind that temporarily holds and processes
+                      information.
                     </p>
                   </div>
                 </div>
+              </div>
 
-                <div className="rounded-3xl bg-white p-8 shadow-sm">
-                  <h2 className="text-2xl font-semibold">Bilingual Glossary</h2>
-                  <div className="mt-6 space-y-4">
-                    <div className="rounded-2xl border border-slate-200 p-4">
-                      <p className="font-semibold">
-                        {currentSupport.glossary.intrinsic}
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-slate-600">
-                        The mental effort caused by the actual difficulty of the
-                        topic itself.
-                      </p>
-                    </div>
-
-                    <div className="rounded-2xl border border-slate-200 p-4">
-                      <p className="font-semibold">
-                        {currentSupport.glossary.extraneous}
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-slate-600">
-                        Extra mental effort caused by poor explanations or confusing
-                        presentation.
-                      </p>
-                    </div>
-
-                    <div className="rounded-2xl border border-slate-200 p-4">
-                      <p className="font-semibold">
-                        {currentSupport.glossary.workingMemory}
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-slate-600">
-                        The part of the mind that temporarily holds and processes
-                        information.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {supports.audio && (
               <div className="rounded-3xl bg-white p-8 shadow-sm">
-                <h2 className="text-2xl font-semibold">Audio Support</h2>
-                <p className="mt-3 text-slate-600">
-                  Convert this study material into a listenable recap for replay
-                  and review.
+                <h2 className="text-2xl font-semibold">Quick Concept Check</h2>
+                <p className="mt-4 text-slate-600">
+                  Which one is caused by confusing presentation?
                 </p>
 
-                <div className="mt-6 rounded-2xl bg-sky-100 p-5">
-                  <p className="font-medium">Audio Summary Preview</p>
-                  <p className="mt-3 text-sm leading-7 text-slate-700">
-                    This section gives the student a spoken-style recap of the
-                    material, so they can review key ideas by listening instead of
-                    only rereading.
-                  </p>
-
-                  <div className="mt-5 h-3 w-full rounded-full bg-white">
-                    <div className="h-3 w-2/3 rounded-full bg-slate-900" />
-                  </div>
-
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <button className="rounded-2xl bg-white px-4 py-2 text-sm font-medium hover:bg-slate-100">
-                      Play
-                    </button>
-                    <button className="rounded-2xl bg-white px-4 py-2 text-sm font-medium hover:bg-slate-100">
-                      Replay Section
-                    </button>
-                    <button className="rounded-2xl bg-white px-4 py-2 text-sm font-medium hover:bg-slate-100">
-                      1.25x Speed
-                    </button>
-                  </div>
+                <div className="mt-4 flex flex-col gap-3">
+                  <button className="rounded-2xl bg-slate-100 px-4 py-3 text-left hover:bg-slate-200">
+                    Intrinsic Load
+                  </button>
+                  <button className="rounded-2xl bg-slate-100 px-4 py-3 text-left hover:bg-slate-200">
+                    Extraneous Load
+                  </button>
                 </div>
-              </div>
-            )}
-
-            {supports.focus && (
-              <div className="rounded-3xl bg-white p-8 shadow-sm">
-                <h2 className="text-2xl font-semibold">Focus Support</h2>
-                <p className="mt-3 text-slate-600">
-                  Break complex material into smaller actions and checkpoints.
-                </p>
-
-                <div className="mt-6 space-y-4">
-                  {focusTasks.map((task, index) => (
-                    <div
-                      key={task}
-                      className="rounded-2xl border border-slate-200 p-4"
-                    >
-                      <p className="font-medium">{task}</p>
-                      <p className="mt-1 text-sm text-slate-500">
-                        Step {index + 1}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
-              <h2 className="text-2xl font-semibold">Quick Concept Check</h2>
-              <p className="mt-4 text-slate-600">
-                Which one is caused by confusing presentation?
-              </p>
-
-              <div className="mt-4 flex flex-col gap-3">
-                <button className="rounded-2xl bg-slate-100 px-4 py-3 text-left hover:bg-slate-200">
-                  Intrinsic Load
-                </button>
-                <button className="rounded-2xl bg-slate-100 px-4 py-3 text-left hover:bg-slate-200">
-                  Extraneous Load
-                </button>
               </div>
             </div>
+          )}
 
+          {/* Row 4 optional */}
+          {(supports.audio || supports.focus) && (
+            <div className="grid gap-8 lg:grid-cols-2">
+              {supports.audio ? (
+                <div className="rounded-3xl bg-white p-8 shadow-sm">
+                  <h2 className="text-2xl font-semibold">Audio Support</h2>
+                  <p className="mt-3 text-slate-600">
+                    Convert this study material into a listenable recap for replay
+                    and review.
+                  </p>
+
+                  <div className="mt-6 rounded-2xl bg-sky-100 p-5">
+                    <p className="font-medium">Audio Summary Preview</p>
+                    <p className="mt-3 text-sm leading-7 text-slate-700">
+                      This section gives the student a spoken-style recap of the
+                      material, so they can review key ideas by listening instead of
+                      only rereading.
+                    </p>
+
+                    <div className="mt-5 h-3 w-full rounded-full bg-white">
+                      <div className="h-3 w-2/3 rounded-full bg-slate-900" />
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap gap-3">
+                      <button className="rounded-2xl bg-white px-4 py-2 text-sm font-medium hover:bg-slate-100">
+                        Play
+                      </button>
+                      <button className="rounded-2xl bg-white px-4 py-2 text-sm font-medium hover:bg-slate-100">
+                        Replay Section
+                      </button>
+                      <button className="rounded-2xl bg-white px-4 py-2 text-sm font-medium hover:bg-slate-100">
+                        1.25x Speed
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div />
+              )}
+
+              {supports.focus ? (
+                <div className="rounded-3xl bg-white p-8 shadow-sm">
+                  <h2 className="text-2xl font-semibold">Focus Support</h2>
+                  <p className="mt-3 text-slate-600">
+                    Break complex material into smaller actions and checkpoints.
+                  </p>
+
+                  <div className="mt-6 space-y-4">
+                    {focusTasks.map((task, index) => (
+                      <div
+                        key={task}
+                        className="rounded-2xl border border-slate-200 p-4"
+                      >
+                        <p className="font-medium">{task}</p>
+                        <p className="mt-1 text-sm text-slate-500">
+                          Step {index + 1}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div />
+              )}
+            </div>
+          )}
+
+          {/* Final row */}
+          <div className="grid gap-8 lg:grid-cols-2">
             <div className="rounded-3xl bg-white p-8 shadow-sm">
               <h2 className="text-2xl font-semibold">Active Supports</h2>
               <div className="mt-6 flex flex-wrap gap-3">
