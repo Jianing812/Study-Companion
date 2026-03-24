@@ -262,3 +262,25 @@ export default function FocusPage() {
     </main>
   );
 }
+<div className="mt-12 rounded-3xl bg-white p-8 shadow-sm">
+  <h2 className="text-2xl font-semibold">Add Additional Support</h2>
+  <p className="mt-3 text-slate-600">
+    You can combine different support modes based on your needs.
+  </p>
+
+  <div className="mt-6 flex flex-wrap gap-3">
+    <Link
+      href="/multimodal"
+      className="rounded-2xl bg-slate-100 px-5 py-3 hover:bg-slate-200"
+    >
+      Add Audio Support
+    </Link>
+
+    <Link
+      href="/global-scholar"
+      className="rounded-2xl bg-slate-100 px-5 py-3 hover:bg-slate-200"
+    >
+      Add Language Support
+    </Link>
+  </div>
+</div>

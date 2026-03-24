@@ -2,25 +2,25 @@ import Link from "next/link";
 
 const personas = [
   {
-    title: "Multi-Modal Learner",
+    title: "🎧 Audio Support",
     description:
-      "Best for students who understand material better by listening and replaying content.",
+      "Convert notes into audio summaries with replay and speed control for on-the-go learning.",
     href: "/multimodal",
     button: "Enter Audio Mode",
   },
   {
-    title: "Focus-Seeking Student",
+    title: "🐱 Focus Support",
     description:
-      "Best for students who need short study tasks, progress tracking, and re-engagement prompts.",
+      "Stay engaged with short tasks, progress tracking, and gentle attention reminders.",
     href: "/focus",
     button: "Enter Focus Mode",
   },
   {
-    title: "Global Scholar",
+    title: "🌍 Language Support",
     description:
-      "Best for students who want simpler academic language without losing technical accuracy.",
+      "Simplify academic content and access multilingual explanations without losing accuracy.",
     href: "/global-scholar",
-    button: "Enter Clarity Mode",
+    button: "Enter Language Mode",
   },
 ];
 
@@ -37,11 +37,18 @@ export default function Home() {
             Study Companion
           </h1>
 
+        
           <p className="mt-6 text-lg leading-8 text-slate-600">
-            Choose the study experience that fits how you learn best. Instead
-            of forcing every student into the same format, Study Companion
-            adapts the learning journey for different learner types.
+            Instead of forcing students into one learning style, Study Companion
+            provides modular support. You can combine audio, focus, and language
+            support based on your needs.
           </p>
+        </div>
+
+        
+        <div className="mt-6 max-w-3xl rounded-2xl bg-slate-100 p-4 text-sm text-slate-700">
+          You are not limited to one mode. Explore different support experiences
+          and combine them based on your study challenges.
         </div>
 
         <div className="mt-14 grid gap-8 md:grid-cols-3">
