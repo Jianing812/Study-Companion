@@ -11,10 +11,10 @@ const focusTasks = [
 ];
 
 const catMessages = [
-  "🐱 Stay with me — just one more small step.",
-  "🐱 Nice progress. Ready for the next checkpoint?",
-  "🐱 You’re doing great. Let’s finish this task.",
-  "🐱 Small steps still count. Keep going.",
+  "Stay with me — just one more small step.",
+  "Nice progress. Ready for the next checkpoint?",
+  "You’re doing great. Let’s finish this task.",
+  "Small steps still count. Keep going.",
 ];
 
 export default function FocusPage() {
@@ -39,6 +39,9 @@ export default function FocusPage() {
     "Start a session to begin your study workflow."
   );
 
+  const [coFocusLink, setCoFocusLink] = useState("");
+  const [friendJoined, setFriendJoined] = useState(false);
+
   const completedCount = completedTasks.filter(Boolean).length;
   const progress = (completedCount / focusTasks.length) * 100;
 
@@ -55,14 +58,27 @@ export default function FocusPage() {
     }));
   }
 
+  function playMeow() {
+    try {
+      const audio = new Audio(
+        "https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b6b58.mp3?filename=cat-meow-6226.mp3"
+      );
+      audio.volume = 0.25;
+      void audio.play();
+    } catch (error) {
+      console.error("Audio playback failed:", error);
+    }
+  }
+
   function startSession() {
     setSessionStarted(true);
     setCompletedTasks(new Array(focusTasks.length).fill(false));
     setFeedbackMessage(
       "Session started. Combine support tools based on what you need right now."
     );
-    setCatMessage("🐱 Session started! Let’s do one small step.");
+    setCatMessage("Session started! Let’s do one small step.");
     setShowCat(true);
+    playMeow();
 
     setTimeout(() => {
       setShowCat(false);
@@ -89,6 +105,33 @@ export default function FocusPage() {
     }
   }
 
+  function generateCoFocusLink() {
+    const fakeLink = `https://study-companion.app/session/${Math.random()
+      .toString(36)
+      .substring(2, 8)}`;
+    setCoFocusLink(fakeLink);
+    setFriendJoined(false);
+
+    setTimeout(() => {
+      setFriendJoined(true);
+      setFeedbackMessage(
+        "Your friend joined the co-focus session. Stay accountable together."
+      );
+    }, 4000);
+  }
+
+  async function copyInviteLink() {
+    if (!coFocusLink) return;
+
+    try {
+      await navigator.clipboard.writeText(coFocusLink);
+      setFeedbackMessage("Invite link copied.");
+    } catch (error) {
+      console.error("Copy failed:", error);
+      setFeedbackMessage("Could not copy the invite link.");
+    }
+  }
+
   useEffect(() => {
     if (!sessionStarted || !supports.focus) return;
 
@@ -97,6 +140,7 @@ export default function FocusPage() {
         catMessages[Math.floor(Math.random() * catMessages.length)];
       setCatMessage(randomMessage);
       setShowCat(true);
+      playMeow();
 
       setTimeout(() => {
         setShowCat(false);
@@ -195,6 +239,41 @@ export default function FocusPage() {
                 <div className="rounded-2xl bg-amber-100 px-5 py-3 text-sm font-medium text-slate-700">
                   Status: {sessionStatus}
                 </div>
+              </div>
+
+              <div className="mt-6 rounded-2xl bg-slate-100 p-5">
+                <h3 className="font-semibold">Co-Focus Mode</h3>
+                <p className="mt-2 text-sm text-slate-600">
+                  Invite a friend to stay accountable and study together.
+                </p>
+
+                {!coFocusLink ? (
+                  <button
+                    onClick={generateCoFocusLink}
+                    className="mt-4 rounded-2xl bg-slate-900 px-4 py-2 text-white transition hover:bg-slate-800"
+                  >
+                    Generate Invite Link
+                  </button>
+                ) : (
+                  <div className="mt-4 space-y-3">
+                    <div className="rounded-xl bg-white p-3 text-sm break-all">
+                      {coFocusLink}
+                    </div>
+
+                    <button
+                      onClick={copyInviteLink}
+                      className="rounded-xl bg-slate-200 px-3 py-2 text-sm font-medium transition hover:bg-slate-300"
+                    >
+                      Copy Link
+                    </button>
+
+                    <p className="text-sm text-slate-600">
+                      {friendJoined
+                        ? "👤 Friend joined the session"
+                        : "Waiting for friend..."}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -388,9 +467,16 @@ export default function FocusPage() {
         </div>
 
         {showCat && supports.focus && (
-          <div className="fixed bottom-6 right-6 max-w-sm rounded-3xl bg-white p-5 shadow-xl">
-            <p className="text-lg font-semibold">Attention Buddy</p>
-            <p className="mt-2 text-slate-600">{catMessage}</p>
+          <div className="fixed bottom-6 right-6 w-80 rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl">
+            <div className="flex items-center gap-4">
+              <div className="text-5xl">🐱</div>
+              <div>
+                <p className="text-lg font-semibold">Focus Buddy</p>
+                <p className="text-sm text-slate-600">Attention check</p>
+              </div>
+            </div>
+
+            <p className="mt-4 leading-6 text-slate-700">{catMessage}</p>
           </div>
         )}
       </section>
