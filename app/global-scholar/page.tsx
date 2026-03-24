@@ -135,7 +135,8 @@ export default function GlobalScholarPage() {
     }
 
     const segments: Array<
-      { type: "text"; content: string } | { type: "term"; content: string; term: string }
+      | { type: "text"; content: string }
+      | { type: "term"; content: string; term: string }
     > = [];
 
     let cursor = 0;

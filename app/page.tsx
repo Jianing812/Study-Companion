@@ -1,72 +1,105 @@
 import Link from "next/link";
 
-const personas = [
+const supports = [
   {
-    title: "🎧 Audio Support",
+    icon: "🎧",
+    title: "Audio Support",
     description:
-      "Convert notes into audio summaries with replay and speed control for on-the-go learning.",
+      "Turn notes into replayable audio with speed control and downloadable study materials.",
     href: "/multimodal",
-    button: "Enter Audio Mode",
+    button: "Explore Audio",
+    accent: "bg-sky-100 text-sky-800",
   },
   {
-    title: "🐱 Focus Support",
+    icon: "🐱",
+    title: "Focus Support",
     description:
-      "Stay engaged with short tasks, progress tracking, and gentle attention reminders.",
+      "Stay engaged with mini tasks, progress tracking, co-focus sessions, and attention reminders.",
     href: "/focus",
-    button: "Enter Focus Mode",
+    button: "Explore Focus",
+    accent: "bg-amber-100 text-amber-800",
   },
   {
-    title: "🌍 Language Support",
+    icon: "🌍",
+    title: "Language Support",
     description:
-      "Simplify academic content and access multilingual explanations without losing accuracy.",
+      "Simplify difficult academic content with multilingual explanations and interactive term mapping.",
     href: "/global-scholar",
-    button: "Enter Language Mode",
+    button: "Explore Language",
+    accent: "bg-emerald-100 text-emerald-800",
   },
 ];
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="mx-auto max-w-6xl px-6 py-16">
+      <section className="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div className="max-w-4xl">
-          <p className="mb-4 inline-block rounded-full bg-slate-200 px-4 py-1 text-sm font-medium">
+          <p className="inline-flex rounded-full bg-slate-200 px-4 py-1 text-sm font-medium text-slate-700">
             Build With AI Case Competition
           </p>
 
-          <h1 className="text-5xl font-bold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-5xl font-bold leading-tight tracking-tight md:text-7xl">
             Study Companion
           </h1>
 
-        
-          <p className="mt-6 text-lg leading-8 text-slate-600">
-            Instead of forcing students into one learning style, Study Companion
-            provides modular support. You can combine audio, focus, and language
-            support based on your needs.
+          <p className="mt-6 max-w-3xl text-xl leading-9 text-slate-600">
+            Modular study support for how students actually learn.
+          </p>
+
+          <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-500">
+            Combine audio, focus, and language tools in one adaptive workspace
+            based on overlapping learning needs.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Link
+              href="/focus"
+              className="rounded-2xl bg-slate-900 px-6 py-3 font-medium text-white transition hover:bg-slate-800"
+            >
+              Try the Workspace
+            </Link>
+
+            <Link
+              href="/global-scholar"
+              className="rounded-2xl border border-slate-300 bg-white px-6 py-3 font-medium text-slate-700 transition hover:bg-slate-100"
+            >
+              View Language Support
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-10 max-w-4xl rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p className="text-sm leading-7 text-slate-600">
+            Students are not locked into one category. A learner can combine
+            audio support, focus support, and language support in the same study
+            session depending on the material and context.
           </p>
         </div>
 
-        
-        <div className="mt-6 max-w-3xl rounded-2xl bg-slate-100 p-4 text-sm text-slate-700">
-          You are not limited to one mode. Explore different support experiences
-          and combine them based on your study challenges.
-        </div>
-
         <div className="mt-14 grid gap-8 md:grid-cols-3">
-          {personas.map((persona) => (
+          {supports.map((support) => (
             <div
-              key={persona.title}
-              className="rounded-3xl bg-white p-8 shadow-sm"
+              key={support.title}
+              className="group rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg"
             >
-              <h2 className="text-2xl font-semibold">{persona.title}</h2>
+              <div
+                className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl text-2xl ${support.accent}`}
+              >
+                {support.icon}
+              </div>
+
+              <h2 className="mt-5 text-2xl font-semibold">{support.title}</h2>
+
               <p className="mt-4 min-h-[120px] leading-7 text-slate-600">
-                {persona.description}
+                {support.description}
               </p>
 
               <Link
-                href={persona.href}
+                href={support.href}
                 className="mt-6 inline-block rounded-2xl bg-slate-900 px-5 py-3 font-medium text-white transition hover:bg-slate-800"
               >
-                {persona.button}
+                {support.button}
               </Link>
             </div>
           ))}
